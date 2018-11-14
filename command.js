@@ -12,6 +12,7 @@ commander
   .description('init project')
   .action((dir) => {
     // todo something you need
+    	dir=dir?dir:'';
 		const spinner = ora('downloading...').start();
 		const dirName=path.resolve(process.cwd(),dir);
 		download('github:Java-http/yx-easy-gulp', dirName, function (err) {
