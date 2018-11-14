@@ -34,7 +34,9 @@ commander.version('1.0.0')
   .parse(process.argv);
 
 if (commander.message) {
-    console.log('an easy gulp project');
+    console.log('an easy gulp project \r\n you can use the command');
+    console.log(chalk.green('yx init [project]'));
+    console.log(chalk.green('\n to init project'));
 }
 
 // 修改 package.json
