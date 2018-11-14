@@ -10,6 +10,8 @@ npm i yx-easy-gulp -g
 
 ## 使用 
 
+`yx-easy-gulp` 过于冗长，使用`yx`代替
+
 ```
 yx init [project]
 ```
