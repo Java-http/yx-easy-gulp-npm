@@ -37,7 +37,7 @@ if (commander.message) {
     console.log('an easy gulp project');
     console.log('you can use the command');
     console.log(chalk.green('yx init [project]'));
-    console.log(chalk.green('to init project'));
+    console.log('to init project');
 }
 
 // 修改 package.json
