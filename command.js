@@ -33,17 +33,16 @@ commander
             let fileName=answers['gulpfile']+".js";
             copyFile(path.resolve(process.cwd(),'lib',fileName))
               .then(()=>{
-                console.log(`
-    command    |      message
-  --------------------------------
-     npm i     |     下载依赖包
-  --------------------------------
-     gulp      |    运行gulp任务
-  --------------------------------
-   gulp watch  |   运行gulp 监听任务
-
-运行前请全局安装gulp包,更多任务请查看gulpfile.js
-                `)
+                      console.log(chalk.cyan(`--------------------------------`))
+                console.log(chalk.cyan(`  command    |      message     `))
+                      console.log(chalk.cyan(`--------------------------------`))
+                console.log(chalk.cyan(`   npm i     |     下载依赖包    `))
+                      console.log(chalk.cyan(`--------------------------------`))
+                console.log(chalk.cyan(`    gulp     |     运行gulp任务  `))
+                      console.log(chalk.cyan(`--------------------------------`))
+                console.log(chalk.cyan(`  gulp watch |  运行gulp 监听任务   `))
+                      console.log(chalk.cyan(`--------------------------------`))
+                console.log((`运行前请全局安装gulp包,更多任务请查看gulpfile.js`))
               })
           });
 			}else{
