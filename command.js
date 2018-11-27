@@ -80,17 +80,20 @@ function modifyPkg(dirName) {
 } 
 
 // 复制文件并且删除lib文件夹
-async function copyFile(pathDir){
-  fs.readdir(pathDir,(err,files)=>{
-    if(err) throw new Error("找不到文件路径")
-    files.forEach(file=>{
-      var fileName=path.resolve(pathDir,file);
-      fs.copyFile(fileName,path.resolve(process.cwd(),file), (err) => {
+function copyFile(pathDir){
+  return new Promise((resovle,reject)=>{
+    fs.readdir(pathDir,(err,files)=>{
+      if(err) throw new Error("找不到文件路径")
+      files.forEach(file=>{
+        var fileName=path.resolve(pathDir,file);
+        fs.copyFile(fileName,path.resolve(process.cwd(),file), (err) => {
+          if (err) throw err;
+        });
+      })
+      rimraf("lib", (err) => {
         if (err) throw err;
-      });
-    })
-    rimraf("lib", (err) => {
-      if (err) throw err;
+        resovle()
+      })
     })
   })
 }
