@@ -18,7 +18,6 @@ commander
 		download('github:Java-http/yx-easy-gulp', dirName, function (err) {
 			if(!err){
         spinner.succeed('下载成功!');
-        modifyPkg(dirName);
         inquirer
           .prompt([{
             type: 'list',
@@ -30,9 +29,10 @@ commander
             ]
           }])
           .then(answers => {
-            let fileName=answers['gulpfile']+".js";
+            let fileName=answers['gulpfile'];
             copyFile(path.resolve(process.cwd(),'lib',fileName))
               .then(()=>{
+                modifyPkg(dirName);
                       console.log(chalk.cyan(`--------------------------------`))
                 console.log(chalk.cyan(`  command    |      message     `))
                       console.log(chalk.cyan(`--------------------------------`))
@@ -44,6 +44,7 @@ commander
                       console.log(chalk.cyan(`--------------------------------`))
                 console.log((`运行前请全局安装gulp包,更多任务请查看gulpfile.js`))
               })
+              .catch((err)=>{console.log(err)})
           });
 			}else{
 			  spinner.fail(chalk.red("下载失败，请重新运行！"));
@@ -79,14 +80,17 @@ function modifyPkg(dirName) {
 } 
 
 // 复制文件并且删除lib文件夹
-function copyFile(file){
-  return new Promise((resolve,reject)=>{
-    fs.copyFile(file,'gulpfile.js', (err) => {
-      if (err) throw err;
-      rimraf("lib", (err) => {
+async function copyFile(pathDir){
+  fs.readdir(pathDir,(err,files)=>{
+    if(err) throw new Error("找不到文件路径")
+    files.forEach(file=>{
+      var fileName=path.resolve(pathDir,file);
+      fs.copyFile(fileName,path.resolve(process.cwd(),file), (err) => {
         if (err) throw err;
-        resolve()
-      })
-    });
+      });
+    })
+    rimraf("lib", (err) => {
+      if (err) throw err;
+    })
   })
 }
